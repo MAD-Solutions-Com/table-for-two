@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table for Two · Le Petit Verrou</title>
+<style>
+:root{--night:#17110d;--wall:#241a14;--card:#f3e9d6;--ink:#2a1d14;--wine:#7a1f2b;--gold:#c9a25a;--soft:#8a7560;--ok:#3d6b4a}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:#17110d}
+body{background:radial-gradient(ellipse at 50% -10%,#3a2618 0%,var(--wall) 45%,var(--night) 100%) no-repeat;background-size:100% 900px;color:var(--card);
+ font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:17px;line-height:1.55;min-height:100vh}
+main{max-width:560px;margin:0 auto;padding:20px 16px 80px}
+button{font:inherit;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.brand{font-variant:small-caps;letter-spacing:.18em;color:var(--gold);font-size:14px}
+.ghost{background:none;border:1px solid #5b4636;color:var(--card);border-radius:999px;padding:6px 12px;font-size:13px}
+.ghost:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.candle{width:14px;height:44px;margin:14px auto 4px;position:relative;background:linear-gradient(#efe3c8,#cdbd98);border-radius:2px}
+.candle:before{content:"";position:absolute;left:50%;top:-22px;width:12px;height:22px;margin-left:-6px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+ background:radial-gradient(circle at 50% 70%,#fff6c8 0%,#ffc64d 45%,#e8742a 80%,transparent 100%);transform-origin:50% 100%;animation:flick 2.6s ease-in-out infinite;box-shadow:0 0 28px 10px rgba(255,180,70,.28)}
+@keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}25%{transform:scale(1.06,.94) rotate(2deg)}50%{transform:scale(.96,1.05) rotate(-1deg)}75%{transform:scale(1.03,.98) rotate(3deg)}}
+h1{font-size:34px;line-height:1.1;margin:6px 0 2px;text-align:center;font-weight:600;letter-spacing:.01em}
+.sub{text-align:center;color:var(--gold);font-style:italic;margin:0 0 18px}
+.card{background:var(--card);color:var(--ink);border-radius:6px;padding:22px 20px;box-shadow:0 14px 40px rgba(0,0,0,.5);position:relative}
+.card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(122,31,43,.35);border-radius:3px;pointer-events:none}
+.hand{font-style:italic;font-size:18px;margin:0 0 .9em}
+.sign{text-align:right;color:var(--wine)}
+.btn{display:block;width:100%;background:var(--wine);color:#fff;border:0;border-radius:4px;padding:14px 16px;font-size:17px;letter-spacing:.04em;margin-top:14px}
+.btn:active{transform:translateY(1px)}
+.btn.alt{background:none;color:var(--wine);border:1px solid var(--wine)}
+.letters{display:flex;justify-content:center;gap:8px;margin:18px 0 20px}
+.slot{width:44px;height:54px;border:1px solid #5b4636;border-radius:4px;display:grid;place-items:center;font-size:26px;color:var(--gold);background:rgba(0,0,0,.25)}
+.slot.on{border-color:var(--gold);animation:drop .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes drop{from{transform:translateY(-26px) scale(1.3);opacity:0}to{transform:none;opacity:1}}
+.menu{list-style:none;margin:0;padding:0}
+.menu li{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px dotted rgba(42,29,20,.35)}
+.menu li:last-child{border-bottom:0}
+.menu .no{font-variant:small-caps;color:var(--soft);width:22px;flex:none}
+.menu .nm{flex:1}
+.menu .st{font-size:14px;color:var(--soft);white-space:nowrap}
+.menu li.done .nm{color:var(--soft)}
+.menu li.done .st{color:var(--ok)}
+.menu li.now .nm{font-weight:700;color:var(--wine)}
+.menu li.locked{opacity:.5}
+.stage{margin-top:18px}
+.kicker{font-variant:small-caps;letter-spacing:.16em;color:var(--wine);font-size:14px;margin:0}
+h2{font-size:26px;margin:2px 0 10px;line-height:1.15}
+.lock{width:74px;height:86px;margin:6px auto 14px;position:relative}
+.lock .body{position:absolute;left:0;right:0;bottom:0;height:54px;background:var(--ink);border-radius:8px}
+.lock .body:after{content:"";position:absolute;left:50%;top:18px;width:10px;height:18px;margin-left:-5px;background:var(--gold);border-radius:5px 5px 2px 2px}
+.lock .sh{position:absolute;left:14px;right:14px;top:0;height:46px;border:8px solid var(--ink);border-bottom:0;border-radius:24px 24px 0 0;transform-origin:100% 100%;transition:transform .55s cubic-bezier(.3,1.5,.5,1)}
+.lock.open .sh{transform:translateY(-10px) rotate(28deg)}
+.lock.no{animation:shake .45s}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-9px) rotate(-4deg)}40%{transform:translateX(8px) rotate(3deg)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+label{display:block;font-size:14px;color:var(--soft);margin-bottom:6px}
+input.code{width:100%;font:700 30px "Courier New",monospace;letter-spacing:.42em;text-align:center;text-transform:uppercase;padding:12px 8px 12px calc(8px + .42em);
+ border:2px solid var(--ink);border-radius:4px;background:#fffaf0;color:var(--ink)}
+.msg{min-height:1.6em;margin:10px 0 0;text-align:center;font-style:italic}
+.msg.bad{color:var(--wine)}.msg.good{color:var(--ok)}
+.hints{margin-top:18px;border-top:1px dotted rgba(42,29,20,.35);padding-top:12px}
+.hints h3{font-size:15px;font-variant:small-caps;letter-spacing:.14em;margin:0 0 6px;color:var(--soft)}
+.hint{background:rgba(122,31,43,.08);border-left:3px solid var(--wine);padding:8px 10px;margin:8px 0;font-size:16px;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.stamp{display:inline-block;border:3px solid var(--ok);color:var(--ok);font:700 15px/1 Arial,sans-serif;letter-spacing:.2em;padding:7px 10px;border-radius:4px;transform:rotate(-6deg);animation:stamp .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes stamp{from{transform:scale(2.4) rotate(-18deg);opacity:0}to{transform:rotate(-6deg);opacity:1}}
+.recipe{margin-top:18px;border-top:2px solid var(--wine);padding-top:10px}
+.recipe h3{font-size:22px;margin:0 0 6px}
+.recipe ol{padding-left:20px;margin:8px 0}
+.recipe li{margin-bottom:8px}
+.warn{font:13px Arial,sans-serif;border:1px solid var(--soft);padding:6px 8px;color:#5b4636}
+.bon{text-align:center;font-style:italic;color:var(--wine);font-size:19px}
+.stats{text-align:center;color:var(--soft);font-size:15px;margin-top:10px}
+.foot{text-align:center;color:#8a7560;font:12px Arial,sans-serif;margin-top:26px}
+.foot button{background:none;border:0;color:#b89c7c;text-decoration:underline;font-size:12px;padding:6px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><span class="brand">Le Petit Verrou · est. 1998</span>
+  <span><button class="ghost" id="voice" hidden>Play the chef's note</button> <button class="ghost" id="mute" aria-pressed="false">Sound: on</button></span></div>
+
+ <section id="intro">
+  <div class="candle" aria-hidden="true"></div>
+  <h1>Table for Two</h1><p class="sub">The Chef Has Vanished</p>
+  <div class="card">
+   <p class="hand">Forgive me. For the first time in twenty-eight years I am not in my kitchen tonight.</p>
+   <p class="hand">But nobody leaves Le Petit Verrou hungry. I have locked the menu, one course at a time. One of you takes the front of house. The other takes the kitchen. Open every course and the last one is yours to keep.</p>
+   <p class="hand sign">M.</p>
+   <button class="btn" id="start">Take your seats</button>
+  </div>
+  <p class="stats">Keep this page between you. Your printed pages stay secret.</p>
+ </section>
+
+ <section id="game" hidden>
+  <div class="letters" id="letters" aria-label="Letters earned"></div>
+  <div class="card"><ul class="menu" id="menu"></ul></div>
+  <div class="card stage" id="stage"></div>
+ </section>
+
+ <section id="end" hidden>
+  <div class="candle" aria-hidden="true"></div>
+  <h1>The Chef's Safe</h1><p class="sub">opened by the two of you</p>
+  <div class="card" id="letter"></div>
+  <p class="stats" id="stats"></p>
+ </section>
+
+ <p class="foot">Prototype v0.3 · not for sale · Puzzle text drafted with AI assistance.<br><button id="reset">Start over</button></p>
+</main>
+<script>
+
+function h53(s,seed){let a=0xdeadbeef^seed,b=0x41c6ce57^seed;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677);}
+a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return (4294967296*(2097151&b)+(a>>>0)).toString(36);}
+function rng(seed){let t=seed>>>0;return function(){t+=0x6D2B79F5;let r=Math.imul(t^(t>>>15),1|t);r^=r+Math.imul(r^(r>>>7),61|r);return ((r^(r>>>14))>>>0)&255;};}
+function seedOf(s){return parseInt(h53(s,7),36)%4294967296;}
+function norm(s){return String(s).toUpperCase().replace(/[^A-Z0-9]/g,'');}
+
+const D={"c":[{"n":"Amuse","t":"The Reservation Book","len":3,"kind":"num","v":"195z20d36rj6","r":"PNwxtFvbk25GNu6Imoeulj4ix82SMOlZ7oOPTlk/T/WzuhcjxoJufwEQTcjg1+z77m5YNKkiGMX1r8XuV1J/6c2pEFY0py69QrjLcsqcfVH/E84=","h":["U3RhcnQgd2l0aCB0aGUgd2lzaGVzIHRoYXQgcnVsZSB0YWJsZXMgb3V0LiBQbGF5ZXIgQjogcmVhZCBvdXQgZWFjaCB0YWJsZSB3aXRoIGl0cyBzZWF0cyBhbmQgd2hhdCBpdCBpcyBuZXh0IHRvLg==","VGhlIHBhcnR5IG9mIGZvdXIgbmVlZHMgZm91ciBzZWF0cyBhbmQgbm8gZHJhdWdodC4gVGhhdCBsZWF2ZXMgb25lIHRhYmxlLiBUaGVuIHBsYWNlIHRoZSB3aGl0ZSBkcmVzcy4=","VGFuYWthOiBUYWJsZSAzLiBTdmVuc3NvbjogVGFibGUgNi4gT2thZm9yOiBUYWJsZSAxLiBOb3cgcHV0IHRob3NlIHRocmVlIGluIG9yZGVyIG9mIGFycml2YWwu"]},{"n":"Starter","t":"The Wine List","len":3,"kind":"num","v":"eyh4rjn4xt6","r":"d4MDugV/wMpK7V1Agiz0tI0p+7M/bTNVXFATboKMiUH1hd6JtmsGwQED7PN+uleIVnh6s27GlNPHTUNoZYMc0NkX4FQUwi6MsfauHuHGpg==","h":["UGxheWVyIEE6IGRlc2NyaWJlIHRoZSBwaWN0dXJlIGFuZCB0aGUgcGxhY2Ugb24gZXZlcnkgbGFiZWwuIFRoZXJlIGFyZSB0d28gYmlyZHMgYW5kIHR3byBpc2xhbmRzLg==","VGhlIGZhbGNvbiBodW50cyBieSBkYXkuIFNpY2lseSBpcyB0aGUgSXRhbGlhbiBpc2xhbmQuIFRoZSBsYXN0IGJvdHRsZSBtdXN0IGJlIGZyb20gMTk5MCB0byAxOTk3Lg==","RmFsa2UgaXMgQmluIDMsIElzb2xhIEJpYW5jYSBpcyBCaW4gOCwgRG9tYWluZSBWZXJyb3UgKDE5OTYpIGlzIEJpbiAxLg=="]},{"n":"Soup","t":"The Tickets","len":4,"kind":"num","v":"uay9qfq2w46","r":"Lb1rG/YZ8NR55UgObjbNydbQWiy2DIG2E1YsxGPifldOqxpfQcQw9u0IuZPieD8cC0CFccSfhLMibg==","h":["RWFjaCBzb3VwIG5hbWUgaXMgc3BsaXQgaW4gdHdvLiBTYXkgeW91ciBoYWxmIG91dCBsb3VkIGFuZCBsaXN0ZW4gZm9yIGEgbWF0Y2guIFR3byBoYWx2ZXMgZW5kIHRoZSBzYW1lIHdheS4=","QSB0YWJsZSBjYW5ub3Qgb3JkZXIgbW9yZSBib3dscyB0aGFuIGl0IGhhcyBndWVzdHMuIENoZWNrIHdobyBzYXQgd2hlcmUgaW4gQ291cnNlIDEu","TWluZXN0cm9uZSB4MiBhdCAxOTowOCwgVG9tYXRvIEJpc3F1ZSB4NCBhdCAxOToyNywgTG9ic3RlciBCaXNxdWUgeDMgYXQgMTk6NDIsIEdhenBhY2hvIHgxIGF0IDIwOjEwLg=="]},{"n":"Main","t":"The Spice Rack","len":5,"kind":"txt","v":"1m64be1p2r36","r":"8zbmgw7XNrD0SACd4zbT2BVV/qIPFnjUM1w5MqUStI5PlIXHDFLkDHa/kz22avo+pgjJUBvSBjJ8","h":["Rmlyc3QgcHV0IHRoZSBzdGVwcyBpbiBvcmRlciBvZiB0aW1lLiBUaGVuIFBsYXllciBBIHJlYWRzIG9uZSBzdGVwIGFuZCBQbGF5ZXIgQiBmaW5kcyB0aGUgamFyLg==","VXNlIHRoZSBudW1iZXIgb2YgcGluY2hlcyB0byBwaWNrIG9uZSBsZXR0ZXIgZnJvbSB0aGUgamFyJ3MgbmFtZS4=","SW4gdGltZSBvcmRlciB0aGUgamFycyBhcmUgVGFycmFnb24sIE9yZWdhbm8sIFNhZmZyb24sIENsb3ZlcywgVGh5bWUu"]},{"n":"Palate Cleanser","t":"The Plates","len":3,"kind":"num","v":"1bjjxkbpun36","r":"whR55aUzjFKJhEN7qzLEIy/8j1lA/NDtnwKsGakgz/Jf5N+DDyVgCudu/HB4CXOcoGyGlmFTlIXsJUrdcgWIepJg4Qvv","h":["UGxheWVyIEI6IGRlc2NyaWJlIGVhY2ggcGxhdGUgYXMgYSBjbG9jayBmYWNlLiBUaGUgdHJpYW5nbGUgb24gdGhlIHJpbSBpcyB0d2VsdmUu","VGhlIGtuaWZlIGlzIHRoZSBob3VyIGhhbmQuIElmIGl0IHNpdHMgYmV0d2VlbiB0d28gbnVtYmVycywgdGhlIGhvdXIgaXMgdGhlIG9uZSBpdCBoYXMgYWxyZWFkeSBwYXNzZWQu","TGVtb24gaXMgNTowMCwgb2xpdmUgaXMgODozMCwgY2hlcnJ5IGlzIDI6NDUuIE9ubHkgdGhlIGhvdXJzIGNvdW50Lg=="]},{"n":"Dessert","t":"The Bill","len":3,"kind":"num","v":"qcwuxgezg16","r":"sDbS+6C352UHmvr99KyLCbXr3dFkrGsmBAM7On5OxaFtrSNtHIrDGBdlETCqMlTR2WBvDN3ejs4JnPOyGtGn8ZJO93gGFgPVmKMgaVHMEhKbCUvXa88d/rK4OKwPINfgNlw=","h":["RXZlcnkgbGluZSBvbiB0aGUgYmlsbCBwb2ludHMgYmFjayB0byBhbiBlYXJsaWVyIGNvdXJzZS4=","VGhyZWUgZ3Vlc3RzIHNhdCBhdCB0aGUgd2luZG93LiBUaGUgbGFzdCBib3R0bGUgd2FzIHRoZSAxOTk2LCBCaW4gMS4gVGFibGUgMyBvcmRlcmVkIGZvdXIgYm93bHMuIFRoZSBtYWluIHdhcyB5b3VyIHdvcmQgZnJvbSBDb3Vyc2UgNC4=","Q292ZXIgNiwgd2luZSA0OCwgc291cCAyNCwgbWFpbiA0OC4="]}],"f":{"v":"10mln49ti6h6","r":"Yo7S8iGp39pzms94p8Se2VRpb15UzDvaieZpMKcXx7Oq2MouT9AvsKJseTLmrfv4v9bWvnyXRyD9on0Uuiyauo/hnbhINmH6QaHm3SxL5ICAVKPGr9TO/LiGqF0XS7vZmjfr+jBARaUVHDcclgNxiW46WmBdVYkEnfXf2fHwUBOfXfJvoi03KppEtA2J6/BTNh9b5D0ZJjC9GW/zQCXBZXlpGoyXazT5/spbIyDOjh6kIpRDFZ1IXIp8aCTaxVP7+hTMGgNRa2phKiGWP0KskZzOKYsbsVdr0sHYlWsj9wXyRhGJ7Iwv8ZY49dxRRO4AbPsu7DSgCNe/lMG4PL1kUnIDa1xVUVIPbINNk/dFwDItzfzLNCifPRenFAfAkObPqqdfHy4TlTmz4QUcHOG/DHsG1KqVYE+RYMweV7VqdRTB1R0gL+AI93qGwkM0W9nKnEpNcXaBUBhU1SoyAdXaNJEEL+7SED0qfSDg9d3P1dCJN9PdnkQ8Ie1kYdpfgYrcq7FdNUO6PyMXzaYzHnVYkENiLmWZDrvigGidk8SFzn8vuir75rLaiRetyjiBOx/RaaaOyhalnRIR8Atp63TIEJ11gDZTOu2oJRIJdi0A5BBrzWhNaKs/Al/NQRtj5nb2R4NtnVWOBQhgc92BAaTHcHXzUNrn0WHOEk70QTADNDxOy4x1HAkZ41QwMvg00IoN1kwVS6BeWbFxdgj4+asx+MJnaprCvUtoW40+lMdv3znt+2b6iVjjV3/SpaaIDgv6ntPs+wQYGxu5b2nwwRWVCPZ5tZYOYdLbpfKHwywO9EQJr4s61wS+F0McT20UAw11IfR9J/Wl5/I+ipMyO0fn+t1mZ6afyfTL/y2FBq052zg6qzQ+Xlg1dpf4JZBinYp46gbGgvYJHXbpwESahhde8GXrOKwmEHoPdqbSj9KN1p0NE7ukcX2LA9f+nHNwUtK0Z8QPRK8EhrxyJMCEgzNU78HVBFYMoCZcEJngu33gyW7Qn9Y0ZmjbofJZZbiEMlKTtTmPTQeFUwzO6EvGLvJSSLgO0Dj/H2jxYWLIFs/JAOsCDN/1Xb90fGMa62fdvc3L7MeNJEXyE+OqSCBP9u7Q/Ta5BRM5CF8UIWw7z3UjB1uY0yhCcbKtX7yQ429sBbEWy1Y89I014A7XRuLD2ummrK75xMKEKkJ7OMhbCJTjqdRgTJOuCTxIRRCD1B9zOYscmAohazXPa/nkrTa6ex5Texou+NJgayU+7cfjKi3IvVlrHTNyBbArZWoxPRnUsZ9QVdZXNMM+uIDVgLEcEK/Jwn92irp3pyHnLcapqAkDaJQOuMDtCIf6DvvLvfvAgYo8a+2v0EdCbfyipyxaLd/CltbKgj6eAkIPnz27JCLWJVLLI6y1/dCkCMcNU3JWnWkzqKB/aLTWDDBupV6EMVxk1mY43gzINgk9573VE2X/bsbBnY6NfsgVBv9E4A1Tmk6HZj+sk/JsD1FU+p2euxHf9yFjiegInD9oxcY5dXlXHHjsfthaL9wUymKu/MhyB9SIDE4BmMvGnG3DJUJQuHOCt1+kZcXcFeWFYG9lY3SrXCVhKwAvtbjETKY/VJ7BuAfyUBLvnZVG6z3KeN5JX6SRvENyz+SqsZgGnhRsTBmPmfOBcOMtPpxJn4fopl2NlivGbEdBOzbiQtWuFXTSsCf+eSBLmFqYQCay4odcmGZKsiH/m9R7RwJOQDUKuO5xb6B8JM/8+KMijqu5ADZhdvuad0OR"}};
+const SALT='verrou', KEY='tft-v02';
+function dec(b64,key){const r=rng(seedOf(key));const raw=atob(b64);const out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^r();return new TextDecoder().decode(out);}
+function b64(s){const raw=atob(s);const out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return new TextDecoder().decode(out);}
+const $=id=>document.getElementById(id);
+let S={i:0,letters:[],lines:[],hints:[0,0,0,0,0,0],tries:0,start:0,done:false,fin:null,mute:false};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY));if(v&&typeof v.i==='number')S=Object.assign(S,v);}catch(e){}}
+
+/* ---- sound: synthesised, no files needed ---- */
+let ac=null;
+function ctx(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
+function tone(f,t0,d,type,g){const a=ctx();if(!a||S.mute)return;const o=a.createOscillator(),v=a.createGain();o.type=type||'sine';o.frequency.value=f;
+ v.gain.setValueAtTime(0,a.currentTime+t0);v.gain.linearRampToValueAtTime(g||.18,a.currentTime+t0+.015);v.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t0+d);
+ o.connect(v).connect(a.destination);o.start(a.currentTime+t0);o.stop(a.currentTime+t0+d+.05);}
+const sfx={click(){tone(180,0,.07,'square',.12);tone(90,.05,.12,'triangle',.2);},
+ wrong(){tone(150,0,.16,'sawtooth',.1);tone(110,.14,.26,'sawtooth',.1);},
+ right(){tone(120,0,.09,'square',.14);[523,659,784].forEach((f,k)=>tone(f,.12+k*.11,.5,'sine',.16));},
+ hint(){tone(880,0,.18,'sine',.08);},
+ finale(){[392,494,587,784,988,1175].forEach((f,k)=>tone(f,k*.13,.9,'sine',.14));}};
+
+/* ---- optional recorded audio: drop mp3 files in an audio/ folder next to this page ---- */
+const voice=new Audio();voice.preload='none';
+function setVoice(name){$('voice').hidden=true;voice.pause();voice.src='audio/'+name+'.mp3';voice.oncanplay=()=>{$('voice').hidden=false;};voice.onerror=()=>{$('voice').hidden=true;};voice.load();}
+$('voice').onclick=()=>{if(S.mute)return;voice.currentTime=0;voice.play().catch(()=>{});};
+
+function renderLetters(){$('letters').innerHTML=D.c.map((c,k)=>'<div class="slot'+(S.letters[k]?' on':'')+'" aria-label="Course '+(k+1)+'">'+(S.letters[k]||'')+'</div>').join('');}
+function renderMenu(){$('menu').innerHTML=D.c.map((c,k)=>{const cls=k<S.i?'done':k===S.i?'now':'locked';
+ return '<li class="'+cls+'"><span class="no">'+(k+1)+'</span><span class="nm">'+c.n+'</span><span class="st">'+(k<S.i?'served':k===S.i?'on the pass':'locked')+'</span></li>';}).join('');}
+function renderStage(){
+ const st=$('stage');
+ if(S.i>=D.c.length){ // the safe
+  st.innerHTML='<p class="kicker">The last lock</p><h2>The Chef\'s Safe</h2><div class="lock" id="lock"><div class="sh"></div><div class="body"></div></div>'+
+  '<p>Six courses, six letters. Read them in order.</p><label for="code">The word on the safe</label><input class="code" id="code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false">'+
+  '<button class="btn" id="go">Open the safe</button><p class="msg" id="msg" role="status"></p>';
+  $('go').onclick=tryFinal;$('code').onkeydown=e=>{if(e.key==='Enter')tryFinal();};setVoice('safe');return;}
+ const c=D.c[S.i];
+ st.innerHTML='<p class="kicker">Course '+(S.i+1)+' · '+c.n+'</p><h2>'+c.t+'</h2><div class="lock" id="lock"><div class="sh"></div><div class="body"></div></div>'+
+  '<label for="code">'+(c.kind==='num'?c.len+' digits':c.len+' letters')+'</label>'+
+  '<input class="code" id="code" maxlength="'+c.len+'" autocomplete="off" spellcheck="false" '+(c.kind==='num'?'inputmode="numeric" pattern="[0-9]*"':'autocapitalize="characters"')+'>'+
+  '<button class="btn" id="go">Try the lock</button><p class="msg" id="msg" role="status"></p>'+
+  '<div class="hints"><h3>Stuck?</h3><div id="hl"></div><button class="btn alt" id="hb"></button></div>';
+ $('go').onclick=tryCode;$('code').onkeydown=e=>{if(e.key==='Enter')tryCode();};$('hb').onclick=moreHint;renderHints();setVoice('course'+(S.i+1));
+}
+function renderHints(){const c=D.c[S.i],n=S.hints[S.i];$('hl').innerHTML=c.h.slice(0,n).map((h,k)=>'<div class="hint"><b>Hint '+(k+1)+'.</b> '+b64(h)+'</div>').join('');
+ const b=$('hb');if(n>=c.h.length){b.hidden=true;}else{b.hidden=false;b.textContent=n===0?'Ask for a hint':n===c.h.length-1?'Last hint (nearly the answer)':'Another hint';}}
+function moreHint(){S.hints[S.i]++;save();sfx.hint();renderHints();}
+function bad(text){const l=$('lock');l.classList.remove('no');void l.offsetWidth;l.classList.add('no');sfx.wrong();const m=$('msg');m.className='msg bad';m.textContent=text;S.tries++;save();$('code').select();}
+function tryCode(){const c=D.c[S.i],v=norm($('code').value);sfx.click();
+ if(v.length<c.len){const m=$('msg');m.className='msg bad';m.textContent='The lock needs '+c.len+(c.kind==='num'?' digits.':' letters.');return;}
+ if(h53(v,11)+SALT.length!==c.v){bad(['The lock does not move. Talk it through again.','Not yet. What did your partner actually say?','Close the kitchen door and try once more.'][S.tries%3]);return;}
+ const r=JSON.parse(dec(c.r,v+SALT));$('lock').classList.add('open');sfx.right();
+ $('go').disabled=true;$('code').disabled=true;const m=$('msg');m.className='msg good';m.innerHTML='<span class="stamp">SERVED</span><br><br>"'+r.line+'"';
+ S.letters[S.i]=r.letter;S.lines[S.i]=r.line;const k=S.i;setTimeout(()=>{renderLetters();},500);
+ const nx=document.createElement('button');nx.className='btn';nx.id='next';nx.textContent=k===D.c.length-1?'Go to the safe':'Next course';
+ nx.onclick=()=>{renderMenu();renderStage();window.scrollTo({top:0,behavior:'smooth'});};
+ const hb=document.querySelector('.hints');if(hb)hb.hidden=true;$('stage').appendChild(nx);S.i=k+1;save();
+}
+function tryFinal(){const v=norm($('code').value);sfx.click();
+ if(h53(v,11)+SALT.length!==D.f.v){bad('The safe stays shut. Six letters, in the order of the courses.');return;}
+ $('lock').classList.add('open');S.done=true;S.fin=v;save();sfx.finale();setTimeout(showEnd,900);}
+function showEnd(){$('game').hidden=true;$('intro').hidden=true;$('end').hidden=false;$('letter').innerHTML=dec(D.f.r,S.fin+SALT);
+ const mins=S.start?Math.max(1,Math.round((Date.now()-S.start)/60000)):null;const h=S.hints.reduce((a,b)=>a+b,0);
+ $('stats').textContent=(mins?'Your evening: about '+mins+(mins===1?' minute, ':' minutes, '):'')+h+(h===1?' hint':' hints')+'.';setVoice('finale');window.scrollTo(0,0);}
+function showGame(){$('intro').hidden=true;$('end').hidden=true;$('game').hidden=false;renderLetters();renderMenu();renderStage();}
+$('start').onclick=()=>{ctx();sfx.click();if(!S.start)S.start=Date.now();save();showGame();};
+$('mute').onclick=()=>{S.mute=!S.mute;if(S.mute)voice.pause();$('mute').textContent='Sound: '+(S.mute?'off':'on');$('mute').setAttribute('aria-pressed',S.mute);save();};
+let armed=0;$('reset').onclick=()=>{if(Date.now()-armed<4000){try{localStorage.removeItem(KEY);}catch(e){}location.reload();}else{armed=Date.now();$('reset').textContent='Tap again to erase your progress';setTimeout(()=>{$('reset').textContent='Start over';},4000);}};
+load();$('mute').textContent='Sound: '+(S.mute?'off':'on');
+if(S.done&&S.fin)showEnd();else if(S.start)showGame();else setVoice('intro');
+</script>
+</body>
+</html>
