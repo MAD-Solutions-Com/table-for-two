@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Last Light · Kerrow Point</title>
+<style>
+:root{--night:#0c141b;--wall:#16242f;--card:#eef1ee;--ink:#1d2a33;--wine:#a33a2c;--gold:#d9b46a;--soft:#6d7f8a;--ok:#3d6b4a}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:#0c141b}
+body{background:radial-gradient(ellipse at 50% -10%,#2f4a60 0%,var(--wall) 45%,var(--night) 100%) no-repeat;background-size:100% 900px;color:var(--card);
+ font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:17px;line-height:1.55;min-height:100vh}
+main{max-width:560px;margin:0 auto;padding:20px 16px 80px}
+button{font:inherit;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.brand{font-variant:small-caps;letter-spacing:.18em;color:var(--gold);font-size:14px}
+.ghost{background:none;border:1px solid #5b4636;color:var(--card);border-radius:999px;padding:6px 12px;font-size:13px}
+.ghost:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.icon{display:flex;justify-content:center;margin:10px 0 2px}.icon svg{width:64px;height:64px}
+.candle{width:14px;height:44px;margin:14px auto 4px;position:relative;background:linear-gradient(#efe3c8,#cdbd98);border-radius:2px}
+.candle:before{content:"";position:absolute;left:50%;top:-22px;width:12px;height:22px;margin-left:-6px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+ background:radial-gradient(circle at 50% 70%,#fff6c8 0%,#ffc64d 45%,#e8742a 80%,transparent 100%);transform-origin:50% 100%;animation:flick 2.6s ease-in-out infinite;box-shadow:0 0 28px 10px rgba(255,180,70,.28)}
+@keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}25%{transform:scale(1.06,.94) rotate(2deg)}50%{transform:scale(.96,1.05) rotate(-1deg)}75%{transform:scale(1.03,.98) rotate(3deg)}}
+h1{font-size:34px;line-height:1.1;margin:6px 0 2px;text-align:center;font-weight:600;letter-spacing:.01em}
+.sub{text-align:center;color:var(--gold);font-style:italic;margin:0 0 18px}
+.card{background:var(--card);color:var(--ink);border-radius:6px;padding:22px 20px;box-shadow:0 14px 40px rgba(0,0,0,.5);position:relative}
+.card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(122,31,43,.35);border-radius:3px;pointer-events:none}
+.hand{font-style:italic;font-size:18px;margin:0 0 .9em}
+.sign{text-align:right;color:var(--wine)}
+.btn{display:block;width:100%;background:var(--wine);color:#fff;border:0;border-radius:4px;padding:14px 16px;font-size:17px;letter-spacing:.04em;margin-top:14px}
+.btn:active{transform:translateY(1px)}
+.btn.alt{background:none;color:var(--wine);border:1px solid var(--wine)}
+.letters{display:flex;justify-content:center;gap:8px;margin:18px 0 20px}
+.slot{width:44px;height:54px;border:1px solid #5b4636;border-radius:4px;display:grid;place-items:center;font-size:26px;color:var(--gold);background:rgba(0,0,0,.25)}
+.slot.on{border-color:var(--gold);animation:drop .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes drop{from{transform:translateY(-26px) scale(1.3);opacity:0}to{transform:none;opacity:1}}
+.menu{list-style:none;margin:0;padding:0}
+.menu li{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px dotted rgba(42,29,20,.35)}
+.menu li:last-child{border-bottom:0}
+.menu .no{font-variant:small-caps;color:var(--soft);width:22px;flex:none}
+.menu .nm{flex:1}
+.menu .st{font-size:14px;color:var(--soft);white-space:nowrap}
+.menu li.done .nm{color:var(--soft)}
+.menu li.done .st{color:var(--ok)}
+.menu li.now .nm{font-weight:700;color:var(--wine)}
+.menu li.locked{opacity:.5}
+.stage{margin-top:18px}
+.kicker{font-variant:small-caps;letter-spacing:.16em;color:var(--wine);font-size:14px;margin:0}
+h2{font-size:26px;margin:2px 0 10px;line-height:1.15}
+.lock{width:74px;height:86px;margin:6px auto 14px;position:relative}
+.lock .body{position:absolute;left:0;right:0;bottom:0;height:54px;background:var(--ink);border-radius:8px}
+.lock .body:after{content:"";position:absolute;left:50%;top:18px;width:10px;height:18px;margin-left:-5px;background:var(--gold);border-radius:5px 5px 2px 2px}
+.lock .sh{position:absolute;left:14px;right:14px;top:0;height:46px;border:8px solid var(--ink);border-bottom:0;border-radius:24px 24px 0 0;transform-origin:100% 100%;transition:transform .55s cubic-bezier(.3,1.5,.5,1)}
+.lock.open .sh{transform:translateY(-10px) rotate(28deg)}
+.lock.no{animation:shake .45s}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-9px) rotate(-4deg)}40%{transform:translateX(8px) rotate(3deg)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+label{display:block;font-size:14px;color:var(--soft);margin-bottom:6px}
+input.code{width:100%;font:700 30px "Courier New",monospace;letter-spacing:.42em;text-align:center;text-transform:uppercase;padding:12px 8px 12px calc(8px + .42em);
+ border:2px solid var(--ink);border-radius:4px;background:#fffaf0;color:var(--ink)}
+.msg{min-height:1.6em;margin:10px 0 0;text-align:center;font-style:italic}
+.msg.bad{color:var(--wine)}.msg.good{color:var(--ok)}
+.hints{margin-top:18px;border-top:1px dotted rgba(42,29,20,.35);padding-top:12px}
+.hints h3{font-size:15px;font-variant:small-caps;letter-spacing:.14em;margin:0 0 6px;color:var(--soft)}
+.hint{background:rgba(122,31,43,.08);border-left:3px solid var(--wine);padding:8px 10px;margin:8px 0;font-size:16px;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.stamp{display:inline-block;border:3px solid var(--ok);color:var(--ok);font:700 15px/1 Arial,sans-serif;letter-spacing:.2em;padding:7px 10px;border-radius:4px;transform:rotate(-6deg);animation:stamp .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes stamp{from{transform:scale(2.4) rotate(-18deg);opacity:0}to{transform:rotate(-6deg);opacity:1}}
+.recipe{margin-top:18px;border-top:2px solid var(--wine);padding-top:10px}
+.recipe h3{font-size:22px;margin:0 0 6px}
+.recipe ol{padding-left:20px;margin:8px 0}
+.recipe li{margin-bottom:8px}
+.warn{font:13px Arial,sans-serif;border:1px solid var(--soft);padding:6px 8px;color:#5b4636}
+.mk{margin-top:12px;font-style:normal;text-align:left}.mk .hint{color:var(--ink)}.msg b.big{font-size:30px;color:var(--wine);font-style:normal}.st b{color:var(--wine)}
+.bon{text-align:center;font-style:italic;color:var(--wine);font-size:19px}
+.stats{text-align:center;color:var(--soft);font-size:15px;margin-top:10px}
+.foot{text-align:center;color:#8a7560;font:12px Arial,sans-serif;margin-top:26px}
+.foot button{background:none;border:0;color:#b89c7c;text-decoration:underline;font-size:12px;padding:6px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><span class="brand">Kerrow Point &middot; 1912</span>
+  <span><button class="ghost" id="voice" hidden>Play the keeper's note</button> <button class="ghost" id="mute" aria-pressed="false">Sound: on</button></span></div>
+
+ <section id="intro">
+  <div class="icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M26 58 L29 22 H35 L38 58 Z" fill="#eef1ee"/><rect x="27" y="14" width="10" height="8" fill="#d9b46a"/><path d="M24 14 L32 7 L40 14 Z" fill="#a33a2c"/><path d="M37 17 L62 9 V27 Z" fill="#f6dd8a" opacity=".55"/><path d="M27 17 L2 9 V27 Z" fill="#f6dd8a" opacity=".55"/><rect x="28" y="34" width="8" height="5" fill="#a33a2c"/><rect x="28" y="46" width="8" height="5" fill="#a33a2c"/></svg></div>
+  <h1>The Last Light</h1><p class="sub">A storm, a ship, and a lamp that will not light</p>
+  <div class="card">
+   <p class="hand">If you are reading this, I could not light her myself. One of you is in my room at the top of the tower. The other is in the harbour office across the bay.</p><p class="hand">Talk to each other. Take it one part at a time, and light the lamp. The <i>Margaret</i> is out there.</p><p class="hand sign">E. Tregarth, keeper</p>
+   <button class="btn" id="start">Climb the tower</button>
+  </div>
+  <p class="stats">Keep this page between you. Your printed pages stay secret.</p>
+ </section>
+
+ <section id="game" hidden>
+  
+  <div class="card"><ul class="menu" id="menu"></ul></div>
+  <div class="card stage" id="stage"></div>
+ </section>
+
+ <section id="end" hidden>
+  <div class="icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M26 58 L29 22 H35 L38 58 Z" fill="#eef1ee"/><rect x="27" y="14" width="10" height="8" fill="#d9b46a"/><path d="M24 14 L32 7 L40 14 Z" fill="#a33a2c"/><path d="M37 17 L62 9 V27 Z" fill="#f6dd8a" opacity=".55"/><path d="M27 17 L2 9 V27 Z" fill="#f6dd8a" opacity=".55"/><rect x="28" y="34" width="8" height="5" fill="#a33a2c"/><rect x="28" y="46" width="8" height="5" fill="#a33a2c"/></svg></div>
+  <h1>The Light Is Lit</h1><p class="sub">lit by the two of you</p>
+  <div class="card" id="letter"></div>
+  <p class="stats" id="stats"></p>
+ </section>
+
+ <p class="foot">Prototype v0.1 · not for sale · Puzzle text drafted with AI assistance.<br><button id="reset">Start over</button></p>
+</main>
+<script>
+
+function h53(s,seed){let a=0xdeadbeef^seed,b=0x41c6ce57^seed;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677);}
+a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return (4294967296*(2097151&b)+(a>>>0)).toString(36);}
+function rng(seed){let t=seed>>>0;return function(){t+=0x6D2B79F5;let r=Math.imul(t^(t>>>15),1|t);r^=r+Math.imul(r^(r>>>7),61|r);return ((r^(r>>>14))>>>0)&255;};}
+function seedOf(s){return parseInt(h53(s,7),36)%4294967296;}
+function norm(s){return String(s).toUpperCase().replace(/[^A-Z0-9]/g,'');}
+
+const D={"c":[{"n":"The Tide","t":"The Tide","len":4,"kind":"num","v":"f00n33oim16","r":"CFQ7rnPZmgg65BoNx31XeLvV4pWL7NaI6ad27bAEt9eVd2e5hkJogPUO8rhAMOv8rK6uqV0=","h":["UGxheWVyIEI6IHdvcmsgb3V0IGhvdyBtdWNoIHdhdGVyIGlzIG92ZXIgdGhlIGJhciBhdCBlYWNoIHRpbWUuIFBsYXllciBBOiB3b3JrIG91dCBob3cgbXVjaCB3YXRlciB0aGUgc2hpcCBuZWVkcy4=","VGhlIHNoaXAgbmVlZHMgNC42IG0gcGx1cyAwLjUgbTogNS4xIG0uIE92ZXIgdGhlIGJhciB0aGVyZSBpcyAxLjIgbSBwbHVzIHRoZSB0aWRlLg==","T25seSBhdCAyMzozMCBpcyB0aGVyZSA1LjE1IG0uIEF0IG1pZG5pZ2h0IGl0IGlzIGFscmVhZHkgNS4wNSBtLg=="],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEtlZXBlcidzIHBhZ2UuIExvb2sgYXQgdGhlIHRhbGx5IGJlc2lkZSAyMzozMCBpbiB0aGUgdGlkZSB0YWJsZS4="},{"n":"The Flags","t":"The Flags","len":4,"kind":"num","v":"1si8ex9ylwl6","r":"Pe33JXoH3UHxjspGjc1MP/t2OWBkpiwPDmGILWHjYQDrChLeArVsyMNPDh3It8ezCXGHVJmqjlcgqwPfAw==","h":["UGxheWVyIEI6IGRlc2NyaWJlIGVhY2ggZmxhZyBmcm9tIHRoZSB0b3AuIFBsYXllciBBOiBmaW5kIGl0IGluIHRoZSBzaWduYWwgYm9vay4=","TG9vayBjbG9zZWx5OiBhIHNxdWFyZSBpcyBub3QgYSBjaXJjbGUsIGFuZCBibGFjay1vbi13aGl0ZSBpcyBub3Qgd2hpdGUtb24tYmxhY2su","VG9wIHRvIGJvdHRvbTogYmxhY2sgY3Jvc3Mgb24gd2hpdGUsIGNpcmNsZSwgYmxhY2sgY3Jvc3Mgb24gd2hpdGUsIHRvcCBoYWxmIGJsYWNrLg=="],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEhhcmJvdXIgT2ZmaWNlIHBhZ2UuIFRoZSBmbGFnIGZsb3duIHR3aWNlIGlzIGZsYWcgNjogbG9vayB1bmRlciBpdCBpbiB0aGUgc2lnbmFsIGJvb2su"},{"n":"The Logbook","t":"The Logbook","len":4,"kind":"num","v":"djxzaeqhbi6","r":"djD8u+EgOT6zdO5RKiC64eX12wF+weT95eH1+gbu/jCo10j2PT4PQCF7x2insUI87Zu548GIIlQOfL8NiQo=","h":["UGxheWVyIEI6IHNheSBmb3IgZWFjaCBkYXkgd2hldGhlciB0aGUgbGluZSBnb2VzIHVwLCBkb3duIG9yIHN0YXlzIGxldmVsLg==","QSBsb2dib29rIGVudHJ5IG11c3QgbWF0Y2ggd2hhdCB0aGUgZ2xhc3MgZGlkLiBDb21wYXJlIGVhY2ggZGF5IHdpdGggdGhlIGRheSBiZWZvcmUu","T24gNCBPY3RvYmVyIHRoZSBnbGFzcyBmZWxsIGZyb20gMTAwMSB0byA5OTQsIGJ1dCB0aGUgbG9nYm9vayBzYXlzIGl0IHJvc2Uu"],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEtlZXBlcidzIHBhZ2UuIExvb2sgYXQgdGhlIHN0cm9rZXMgdW5kZXIgNCBPY3RvYmVyIG9uIHRoZSBiYXJvZ3JhcGgu"},{"n":"The Oil","t":"The Oil","len":4,"kind":"num","v":"28xgn9da6p16","r":"VslG/KukkiqXhhrifZDHXDvwJmAudVbqpLwe5cUgt5j0DSwzEPOx6Iyjs1e2Uu2MdbiLJxyFWNX7LjDu","h":["V29yayBvdXQgaG93IG1hbnkgaG91cnMgdGhlIGxhbXAgYnVybnMsIHRoZW4gaG93IG1hbnkgbGl0cmVzIGl0IG5lZWRzLg==","MTMgaG91cnMgYXQgMC42IGxpdHJlcyBpcyA3LjggbGl0cmVzLiBMZWF2ZSBvdXQgdGhlIGVtcHR5IGNhbiBhbmQgdGhlIGVuZ2luZSBwYXJhZmZpbi4=","Q2FucyAxLCAyLCAzIGFuZCA2IGhvbGQgOC4yNSBsaXRyZXMuIFRocmVlIGNhbnMgYXJlIG5ldmVyIGVub3VnaC4="],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEtlZXBlcidzIHBhZ2UuIFRoZSBsZWFzdCBvaWwgeW91IHBvdXJlZCBpcyBpbiBjYW4gMiwgdGhlIGhhbGYtZnVsbCBvbmUu"},{"n":"The Lights","t":"The Lights","len":3,"kind":"num","v":"26qqn7kxu8y6","r":"WCopq3bAE5I6Fi5b1Ujx2SKpQrpNm1ythck0ioXsHEUZ9F8XoeVnpHRoK0hK","h":["UGxheWVyIEI6IHJlYWQgdGhlIE1hcmdhcmV0J3MgbWVzc2FnZSBhbG91ZC4gUGxheWVyIEE6IGZpbmQgdGhlIG1hdGNoaW5nIGxpZ2h0Lg==","VHdvIGxpZ2h0cyBmbGFzaCBzaG9ydC1sb25nLiBPbmx5IG9uZSByZXBlYXRzIGV2ZXJ5IGVpZ2h0IHNlY29uZHMu","SXQgaXMgQmxhY2sgSGVuLiBJdHMgbnVtYmVyIG9uIHRoZSBjaGFydCBpcyA0MTcu"],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEtlZXBlcidzIHBhZ2UuIExvb2sgYXQgdGhlIHN0cm9rZXMgYmVzaWRlIGxpZ2h0IDQxNywgQmxhY2sgSGVuLg=="},{"n":"The Bearing","t":"The Bearing","len":2,"kind":"txt","v":"1cmzwpkhfx36","r":"VwAQl0f1C0jKVHPWmzjz1mEuSZyCPBmUTv3FigK3GJK2nw==","h":["UGxheWVyIEI6IGZpbmQgS2Vycm93IFBvaW50IGFuZCBHYW5uZXQgUm9jayBvbiB0aGUgY2hhcnQu","Tm9ydGgtZWFzdCBpcyB1cCBhbmQgdG8gdGhlIHJpZ2h0LCBkaWFnb25hbGx5LiBOb3J0aC13ZXN0IGlzIHVwIGFuZCB0byB0aGUgbGVmdC4=","VGhlIGRpYWdvbmFscyBjcm9zcyBpbiBzcXVhcmUgRTMu"],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEtlZXBlcidzIHBhZ2UuIExvb2sgYXQgdGhlIGJvYXQgaW4gc3F1YXJlIEUzLg=="}],"f":{"len":6,"kind":"txt","v":"jqhmmozslp6","r":"GSVirZRSWNcuO8VpoMU+EdGhkcLiTtHrCGYU0lxAjrd/3HQyoCiLCRCnsPGeFNSj6Y8HwCxeC0HlIGxpcBx8IQ0WeEOZ5Nws90XJJlQcuSO/ejfF4raqjQ926AO13WTQ+XtixHLM0tK/Nf47snwgII8kVj7kemY70vqzLU8Y/CN9o88gYY/42yzxM6kadmnFKHvmSDJtfqStxka4Hf6vB1B6bdtyq/3JkQxlGKDKHqmIAOprYANUpTIZk6q8P4wcW1gQ/HP0Q+nRCOBU/k6BXxYgr7PZoLyQ+askTIkcHOSeCiS4nPiLxq6w8eXg1/0X/6l2bh8JjMXptct7G2Ic92xOgoRPPRirCdCa3pv1fxEynMWJy1HI264O9s1n4Da6za5q2x1fyZDFCa8XjNWafHP64JcV1YbjTWzYNe7avZhPXtFCeoVFWo3EImJbwe+UIdJXf3jsF6rfpYTF90z/sP2cyDun3mqvgdDu9GfbgNd8seMTaVc+R+c9f67q8DWqYbitiNXKGLwEnuCtF+Kr91sgYlHyaZrW1e3yJyHbMaQZEKcCQP64iKzDqlnVQ4XTUnOpUURMvsGxNHDKN4DUuO7LJ8nuPq0bI0wCJRpt/g5qpQoaoa/li89LGw0876WX/s0Xyd2VO+kq6t9mf34WWzYYO9cOkzylizTRBZpoJ9KtVmStMcIaBsWd9kme8TEOKxgQZ8QUPHd3U6rqMSDM9TuN6hAxIELIGqMPf0BXtQRl2vjq0Kl2zzpfeFjrMjbYk69FmQA=","h":["UGxheWVyIEIgcmVhZHMgdGhlIGtlZXBlcidzIGxhc3QgZW50cnkgbGluZSBieSBsaW5lLiBQbGF5ZXIgQSBzYXlzIHdoaWNoIHBhcnQgZWFjaCBsaW5lIGlzIGFib3V0Lg==","VGhlIG9pbCBpcyBwYXJ0IDQsIHRoZSBsaWdodCB0aGUgTWFyZ2FyZXQgc2F3IHBhcnQgNSwgdGhlIGxpZSBpbiB0aGUgYm9vayBwYXJ0IDMsIHRoZSBmbGFncyBwYXJ0IDIsIHRoZSBjcm9zc2luZyBsaW5lcyBwYXJ0IDYsIHRoZSBiYXIgcGFydCAxLg==","UHJpc21zIDEgdG8gNjogdGhlIGxldHRlcnMgb2YgcGFydHMgNCwgNSwgMywgMiwgNiBhbmQgMS4="]},"t":{"unit":"Part","served":"clear","now":"now","locked":"dark","stamp":"CLEAR","markhead":"Now find the keeper&#39;s signal.","marktext":"One of you has a P.S. that says which strokes count. Decode them with the Morse card and write the letter on The Lens page.","markbtn":"Can&#39;t find the signal?","next":"Next part","gofinal":"Go to the lens","fkick":"The last light","ftitle":"The Lens","ftext":"Six prisms, six letters. One of you has the lens, the other the keeper&#39;s last entry.","flabel":"The word for the lens","fbtn":"Light the lamp","fwrong":"The lamp stays dark. Check the order in the keeper’s last entry.","wrong":["Nothing. Talk it through again.","Not yet. What exactly did your partner say?","The wind takes it. Try once more."]}};
+const SALT='kerrow', KEY='kerrow-v01';
+function dec(b64,key){const r=rng(seedOf(key));const raw=atob(b64);const out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^r();return new TextDecoder().decode(out);}
+function b64(s){const raw=atob(s);const out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return new TextDecoder().decode(out);}
+const $=id=>document.getElementById(id);
+let S={i:0,letters:[],lines:[],hints:[0,0,0,0,0,0,0,0,0],tries:0,start:0,done:false,fin:null,mute:false};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY));if(v&&typeof v.i==='number')S=Object.assign(S,v);}catch(e){}}
+
+/* ---- sound: synthesised, no files needed ---- */
+let ac=null;
+function ctx(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
+function tone(f,t0,d,type,g){const a=ctx();if(!a||S.mute)return;const o=a.createOscillator(),v=a.createGain();o.type=type||'sine';o.frequency.value=f;
+ v.gain.setValueAtTime(0,a.currentTime+t0);v.gain.linearRampToValueAtTime(g||.18,a.currentTime+t0+.015);v.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t0+d);
+ o.connect(v).connect(a.destination);o.start(a.currentTime+t0);o.stop(a.currentTime+t0+d+.05);}
+const sfx={click(){tone(180,0,.07,'square',.12);tone(90,.05,.12,'triangle',.2);},
+ wrong(){tone(150,0,.16,'sawtooth',.1);tone(110,.14,.26,'sawtooth',.1);},
+ right(){tone(120,0,.09,'square',.14);[523,659,784].forEach((f,k)=>tone(f,.12+k*.11,.5,'sine',.16));},
+ hint(){tone(880,0,.18,'sine',.08);},
+ finale(){[392,494,587,784,988,1175].forEach((f,k)=>tone(f,k*.13,.9,'sine',.14));}};
+
+/* ---- optional recorded audio: drop mp3 files in an audio/ folder next to this page ---- */
+const voice=new Audio();voice.preload='none';
+function setVoice(name){$('voice').hidden=true;voice.pause();voice.src='audio/'+name+'.mp3';voice.oncanplay=()=>{$('voice').hidden=false;};voice.onerror=()=>{$('voice').hidden=true;};voice.load();}
+$('voice').onclick=()=>{if(S.mute)return;voice.currentTime=0;voice.play().catch(()=>{});};
+
+function renderLetters(){return;$('letters').innerHTML=D.c.map((c,k)=>'<div class="slot'+(S.letters[k]?' on':'')+'" aria-label="Course '+(k+1)+'">'+(S.letters[k]||'')+'</div>').join('');}
+function renderMenu(){$('menu').innerHTML=D.c.map((c,k)=>{const cls=k<S.i?'done':k===S.i?'now':'locked';
+ return '<li class="'+cls+'"><span class="no">'+(k+1)+'</span><span class="nm">'+c.n+'</span><span class="st">'+(k<S.i?D.t.served:k===S.i?D.t.now:D.t.locked)+'</span></li>';}).join('');}
+function renderStage(){
+ const st=$('stage');
+ if(S.i>=D.c.length){ // the safe
+  st.innerHTML='<p class="kicker">'+D.t.fkick+'</p><h2>'+D.t.ftitle+'</h2><div class="lock" id="lock"><div class="sh"></div><div class="body"></div></div>'+
+  '<p>'+D.t.ftext+'</p><label for="code">'+D.t.flabel+'</label><input class="code" id="code" maxlength="'+D.f.len+'" autocomplete="off" spellcheck="false" '+(D.f.kind==='num'?'inputmode="numeric"':'autocapitalize="characters"')+'>'+
+  '<button class="btn" id="go">'+D.t.fbtn+'</button><p class="msg" id="msg" role="status"></p><div class="hints"><h3>Stuck?</h3><div id="hl"></div><button class="btn alt" id="hb"></button></div>';
+  $('go').onclick=tryFinal;$('hb').onclick=moreHint;renderHints();$('code').onkeydown=e=>{if(e.key==='Enter')tryFinal();};setVoice('safe');return;}
+ const c=D.c[S.i];
+ st.innerHTML='<p class="kicker">'+D.t.unit+' '+(S.i+1)+' · '+c.n+'</p><h2>'+c.t+'</h2><div class="lock" id="lock"><div class="sh"></div><div class="body"></div></div>'+
+  '<label for="code">'+(c.kind==='num'?c.len+' digits':c.len+' letters')+'</label>'+
+  '<input class="code" id="code" maxlength="'+c.len+'" autocomplete="off" spellcheck="false" '+(c.kind==='num'?'inputmode="numeric" pattern="[0-9]*"':'autocapitalize="characters"')+'>'+
+  '<button class="btn" id="go">Try the lock</button><p class="msg" id="msg" role="status"></p>'+
+  '<div class="hints"><h3>Stuck?</h3><div id="hl"></div><button class="btn alt" id="hb"></button></div>';
+ $('go').onclick=tryCode;$('code').onkeydown=e=>{if(e.key==='Enter')tryCode();};$('hb').onclick=moreHint;renderHints();setVoice('course'+(S.i+1));
+}
+function renderHints(){const c=S.i<D.c.length?D.c[S.i]:D.f,n=S.hints[S.i]||0;$('hl').innerHTML=c.h.slice(0,n).map((h,k)=>'<div class="hint"><b>Hint '+(k+1)+'.</b> '+b64(h)+'</div>').join('');
+ const b=$('hb');if(n>=c.h.length){b.hidden=true;}else{b.hidden=false;b.textContent=n===0?'Ask for a hint':n===c.h.length-1?'Last hint (nearly the answer)':'Another hint';}}
+function moreHint(){S.hints[S.i]++;save();sfx.hint();renderHints();}
+function bad(text){const l=$('lock');l.classList.remove('no');void l.offsetWidth;l.classList.add('no');sfx.wrong();const m=$('msg');m.className='msg bad';m.textContent=text;S.tries++;save();$('code').select();}
+function tryCode(){const c=D.c[S.i],v=norm($('code').value);sfx.click();
+ if(v.length<c.len){const m=$('msg');m.className='msg bad';m.textContent='The code needs '+c.len+(c.kind==='num'?' digits.':' characters.');return;}
+ if(h53(v,11)+SALT.length!==c.v){bad(D.t.wrong[S.tries%3]);return;}
+ const r=JSON.parse(dec(c.r,v+SALT));$('lock').classList.add('open');sfx.right();
+ $('go').disabled=true;$('code').disabled=true;const m=$('msg');m.className='msg good';m.innerHTML='<span class="stamp">'+D.t.stamp+'</span><br><br>"'+r.line+'"<br><br><b>'+D.t.markhead+'</b><br><small>'+D.t.marktext+'</small><div class="mk"><button class="btn alt" id="mkb">'+D.t.markbtn+'</button><div id="mkt" class="hint" hidden></div></div>';$('mkb').onclick=()=>{$('mkt').textContent=b64(c.m);$('mkt').hidden=false;$('mkb').hidden=true;sfx.hint();};
+ S.letters[S.i]=r.letter;S.lines[S.i]=r.line;const k=S.i;setTimeout(()=>{renderLetters();},500);
+ const nx=document.createElement('button');nx.className='btn';nx.id='next';nx.textContent=k===D.c.length-1?D.t.gofinal:D.t.next;
+ nx.onclick=()=>{renderMenu();renderStage();window.scrollTo({top:0,behavior:'smooth'});};
+ const hb=document.querySelector('.hints');if(hb)hb.hidden=true;$('stage').appendChild(nx);S.i=k+1;save();
+}
+function tryFinal(){const v=norm($('code').value);sfx.click();
+ if(h53(v,11)+SALT.length!==D.f.v){bad(D.t.fwrong);return;}
+ $('lock').classList.add('open');S.done=true;S.fin=v;save();sfx.finale();setTimeout(showEnd,900);}
+function showEnd(){$('game').hidden=true;$('intro').hidden=true;$('end').hidden=false;$('letter').innerHTML=dec(D.f.r,S.fin+SALT);
+ const mins=S.start?Math.max(1,Math.round((Date.now()-S.start)/60000)):null;const h=S.hints.reduce((a,b)=>a+b,0);
+ $('stats').textContent=(mins?'Your evening: about '+mins+(mins===1?' minute, ':' minutes, '):'')+h+(h===1?' hint':' hints')+'.';setVoice('finale');window.scrollTo(0,0);}
+function showGame(){$('intro').hidden=true;$('end').hidden=true;$('game').hidden=false;renderLetters();renderMenu();renderStage();}
+$('start').onclick=()=>{ctx();sfx.click();if(!S.start)S.start=Date.now();save();showGame();};
+$('mute').onclick=()=>{S.mute=!S.mute;if(S.mute)voice.pause();$('mute').textContent='Sound: '+(S.mute?'off':'on');$('mute').setAttribute('aria-pressed',S.mute);save();};
+let armed=0;$('reset').onclick=()=>{if(Date.now()-armed<4000){try{localStorage.removeItem(KEY);}catch(e){}location.reload();}else{armed=Date.now();$('reset').textContent='Tap again to erase your progress';setTimeout(()=>{$('reset').textContent='Start over';},4000);}};
+load();$('mute').textContent='Sound: '+(S.mute?'off':'on');
+if(S.done&&S.fin)showEnd();else if(S.start)showGame();else setVoice('intro');
+</script>
+</body>
+</html>
