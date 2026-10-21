@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After Hours at the Gallery · The Hartley Museum</title>
+<style>
+:root{--night:#111114;--wall:#1c1b21;--card:#f5f1ea;--ink:#24212a;--wine:#3d4f7a;--gold:#c9a96a;--soft:#7f7a85;--ok:#3d6b4a}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:#111114}
+body{background:radial-gradient(ellipse at 50% -10%,#3d3a4a 0%,var(--wall) 45%,var(--night) 100%) no-repeat;background-size:100% 900px;color:var(--card);
+ font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-size:17px;line-height:1.55;min-height:100vh}
+main{max-width:560px;margin:0 auto;padding:20px 16px 80px}
+button{font:inherit;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.brand{font-variant:small-caps;letter-spacing:.18em;color:var(--gold);font-size:14px}
+.ghost{background:none;border:1px solid #5b4636;color:var(--card);border-radius:999px;padding:6px 12px;font-size:13px}
+.ghost:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.icon{display:flex;justify-content:center;margin:10px 0 2px}.icon svg{width:64px;height:64px}
+.candle{width:14px;height:44px;margin:14px auto 4px;position:relative;background:linear-gradient(#efe3c8,#cdbd98);border-radius:2px}
+.candle:before{content:"";position:absolute;left:50%;top:-22px;width:12px;height:22px;margin-left:-6px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+ background:radial-gradient(circle at 50% 70%,#fff6c8 0%,#ffc64d 45%,#e8742a 80%,transparent 100%);transform-origin:50% 100%;animation:flick 2.6s ease-in-out infinite;box-shadow:0 0 28px 10px rgba(255,180,70,.28)}
+@keyframes flick{0%,100%{transform:scale(1) rotate(-2deg)}25%{transform:scale(1.06,.94) rotate(2deg)}50%{transform:scale(.96,1.05) rotate(-1deg)}75%{transform:scale(1.03,.98) rotate(3deg)}}
+h1{font-size:34px;line-height:1.1;margin:6px 0 2px;text-align:center;font-weight:600;letter-spacing:.01em}
+.sub{text-align:center;color:var(--gold);font-style:italic;margin:0 0 18px}
+.card{background:var(--card);color:var(--ink);border-radius:6px;padding:22px 20px;box-shadow:0 14px 40px rgba(0,0,0,.5);position:relative}
+.card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(122,31,43,.35);border-radius:3px;pointer-events:none}
+.hand{font-style:italic;font-size:18px;margin:0 0 .9em}
+.sign{text-align:right;color:var(--wine)}
+.btn{display:block;width:100%;background:var(--wine);color:#fff;border:0;border-radius:4px;padding:14px 16px;font-size:17px;letter-spacing:.04em;margin-top:14px}
+.btn:active{transform:translateY(1px)}
+.btn.alt{background:none;color:var(--wine);border:1px solid var(--wine)}
+.letters{display:flex;justify-content:center;gap:8px;margin:18px 0 20px}
+.slot{width:44px;height:54px;border:1px solid #5b4636;border-radius:4px;display:grid;place-items:center;font-size:26px;color:var(--gold);background:rgba(0,0,0,.25)}
+.slot.on{border-color:var(--gold);animation:drop .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes drop{from{transform:translateY(-26px) scale(1.3);opacity:0}to{transform:none;opacity:1}}
+.menu{list-style:none;margin:0;padding:0}
+.menu li{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px dotted rgba(42,29,20,.35)}
+.menu li:last-child{border-bottom:0}
+.menu .no{font-variant:small-caps;color:var(--soft);width:22px;flex:none}
+.menu .nm{flex:1}
+.menu .st{font-size:14px;color:var(--soft);white-space:nowrap}
+.menu li.done .nm{color:var(--soft)}
+.menu li.done .st{color:var(--ok)}
+.menu li.now .nm{font-weight:700;color:var(--wine)}
+.menu li.locked{opacity:.5}
+.stage{margin-top:18px}
+.kicker{font-variant:small-caps;letter-spacing:.16em;color:var(--wine);font-size:14px;margin:0}
+h2{font-size:26px;margin:2px 0 10px;line-height:1.15}
+.lock{width:74px;height:86px;margin:6px auto 14px;position:relative}
+.lock .body{position:absolute;left:0;right:0;bottom:0;height:54px;background:var(--ink);border-radius:8px}
+.lock .body:after{content:"";position:absolute;left:50%;top:18px;width:10px;height:18px;margin-left:-5px;background:var(--gold);border-radius:5px 5px 2px 2px}
+.lock .sh{position:absolute;left:14px;right:14px;top:0;height:46px;border:8px solid var(--ink);border-bottom:0;border-radius:24px 24px 0 0;transform-origin:100% 100%;transition:transform .55s cubic-bezier(.3,1.5,.5,1)}
+.lock.open .sh{transform:translateY(-10px) rotate(28deg)}
+.lock.no{animation:shake .45s}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-9px) rotate(-4deg)}40%{transform:translateX(8px) rotate(3deg)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+label{display:block;font-size:14px;color:var(--soft);margin-bottom:6px}
+input.code{width:100%;font:700 30px "Courier New",monospace;letter-spacing:.42em;text-align:center;text-transform:uppercase;padding:12px 8px 12px calc(8px + .42em);
+ border:2px solid var(--ink);border-radius:4px;background:#fffaf0;color:var(--ink)}
+.msg{min-height:1.6em;margin:10px 0 0;text-align:center;font-style:italic}
+.msg.bad{color:var(--wine)}.msg.good{color:var(--ok)}
+.hints{margin-top:18px;border-top:1px dotted rgba(42,29,20,.35);padding-top:12px}
+.hints h3{font-size:15px;font-variant:small-caps;letter-spacing:.14em;margin:0 0 6px;color:var(--soft)}
+.hint{background:rgba(122,31,43,.08);border-left:3px solid var(--wine);padding:8px 10px;margin:8px 0;font-size:16px;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.stamp{display:inline-block;border:3px solid var(--ok);color:var(--ok);font:700 15px/1 Arial,sans-serif;letter-spacing:.2em;padding:7px 10px;border-radius:4px;transform:rotate(-6deg);animation:stamp .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes stamp{from{transform:scale(2.4) rotate(-18deg);opacity:0}to{transform:rotate(-6deg);opacity:1}}
+.recipe{margin-top:18px;border-top:2px solid var(--wine);padding-top:10px}
+.recipe h3{font-size:22px;margin:0 0 6px}
+.recipe ol{padding-left:20px;margin:8px 0}
+.recipe li{margin-bottom:8px}
+.warn{font:13px Arial,sans-serif;border:1px solid var(--soft);padding:6px 8px;color:#5b4636}
+.mk{margin-top:12px;font-style:normal;text-align:left}.mk .hint{color:var(--ink)}.msg b.big{font-size:30px;color:var(--wine);font-style:normal}.st b{color:var(--wine)}
+.bon{text-align:center;font-style:italic;color:var(--wine);font-size:19px}
+.stats{text-align:center;color:var(--soft);font-size:15px;margin-top:10px}
+.foot{text-align:center;color:#8a7560;font:12px Arial,sans-serif;margin-top:26px}
+.foot button{background:none;border:0;color:#b89c7c;text-decoration:underline;font-size:12px;padding:6px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><span class="brand">The Hartley Museum</span>
+  <span><button class="ghost" id="voice" hidden>Play the curator's note</button> <button class="ghost" id="mute" aria-pressed="false">Sound: on</button></span></div>
+
+ <section id="intro">
+  <div class="icon" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="40" fill="#c9a96a"/><rect x="13" y="17" width="38" height="30" fill="#f5f1ea"/><path d="M15 43 L27 29 L35 37 L41 31 L49 43 Z" fill="#3d4f7a"/><circle cx="40" cy="24" r="3.5" fill="#c9a96a"/></svg></div>
+  <h1>After Hours at the Gallery</h1><p class="sub">The doors open at nine</p>
+  <div class="card">
+   <p class="hand">I am sorry to leave you with this on your first night. One painting is a forgery, and the original is somewhere in the building.</p><p class="hand">One of you is the new night guard, the other the new restorer. You have never met; you will have to trust each other. Paintings do not lie, but people do.</p><p class="hand sign">H. Hartley, curator</p>
+   <button class="btn" id="start">Begin the night</button>
+  </div>
+  <p class="stats">Keep this page between you. Your printed pages stay secret.</p>
+ </section>
+
+ <section id="game" hidden>
+  
+  <div class="card"><ul class="menu" id="menu"></ul></div>
+  <div class="card stage" id="stage"></div>
+ </section>
+
+ <section id="end" hidden>
+  <div class="icon" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="40" fill="#c9a96a"/><rect x="13" y="17" width="38" height="30" fill="#f5f1ea"/><path d="M15 43 L27 29 L35 37 L41 31 L49 43 Z" fill="#3d4f7a"/><circle cx="40" cy="24" r="3.5" fill="#c9a96a"/></svg></div>
+  <h1>The Curator's Cabinet</h1><p class="sub">opened by the two of you</p>
+  <div class="card" id="letter"></div>
+  <p class="stats" id="stats"></p>
+ </section>
+
+ <p class="foot">Prototype v0.1 · not for sale · Puzzle text drafted with AI assistance.<br><button id="reset">Start over</button></p>
+</main>
+<script>
+
+function h53(s,seed){let a=0xdeadbeef^seed,b=0x41c6ce57^seed;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677);}
+a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return (4294967296*(2097151&b)+(a>>>0)).toString(36);}
+function rng(seed){let t=seed>>>0;return function(){t+=0x6D2B79F5;let r=Math.imul(t^(t>>>15),1|t);r^=r+Math.imul(r^(r>>>7),61|r);return ((r^(r>>>14))>>>0)&255;};}
+function seedOf(s){return parseInt(h53(s,7),36)%4294967296;}
+function norm(s){return String(s).toUpperCase().replace(/[^A-Z0-9]/g,'');}
+
+const D={"c":[{"n":"The Patrol Log","t":"The Patrol Log","len":4,"kind":"num","v":"fz47ufhj267","r":"uDyJ/LD0BOlw93PVoJcwZvlmFEUoDEuJNFW5fdKEZ2ZU1LsRzIDl4k2p6sM=","h":["UGxheWVyIEE6IHJlYWQgZWFjaCBsaW5lIG9mIHRoZSBsb2cuIFBsYXllciBCOiBzYXkgd2hlbiBlYWNoIGNhbWVyYSBzYXcgc29tZW9uZS4=","TG9vayBmb3IgYSByb29tIHdoZXJlIHRoZSBjYW1lcmEgc2F3IG5vYm9keSBhdCBhbGwu","Um9vbSA0OiB0aGUgY2FtZXJhcyBzYXcgbm9ib2R5LiBUaGUgbG9nIGNsYWltcyAyMTozMC4="],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEd1YXJkJ3MgcGFnZS4gVGhlIHJvb20gbmV2ZXIgZW50ZXJlZCBpcyBSb29tIDQ6IEhhcmJvdXIgYXQgRGF3bi4gQ29tcGFyZSBpdCB3aXRoIHRoZSBjYXRhbG9ndWUgc2tldGNoLg=="},{"n":"The Floor Plan","t":"The Floor Plan","len":5,"kind":"num","v":"1gl2ii2h3oq7","r":"ZxVNu2u65+V8v1imjcspYHaCRSy1POACDh2j0AkLxYQuvnK50oLJtmnWRbao8xU4eEaC+DO2tbeqP17F9g==","h":["UGxheWVyIEI6IHJlYWQgdGhlIHNlbnNvcnMgaW4gb3JkZXIuIFBsYXllciBBOiBmb2xsb3cgdGhlIGRvb3JzIG9uIHRoZSBwbGFuLCBzdGFydGluZyBpbiBSb29tIDEu","RWFjaCBzZW5zb3IgaXMgYSBkb29yIGJldHdlZW4gdHdvIHJvb21zLiBTdGVwIHRocm91Z2ggaXQgdG8gdGhlIG90aGVyIHNpZGUu","Um9vbSAyLCBSb29tIDUsIFJvb20gNiwgUm9vbSA0LCBSb29tIDMu"],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEd1YXJkJ3MgcGFnZS4gVGhlIHdhbGtlciBzdG9wcGVkIGluIFJvb20gMzogV2ludGVyIE1pbGwuIENvbXBhcmUgaXQgd2l0aCB0aGUgY2F0YWxvZ3VlLg=="},{"n":"The Laboratory","t":"The Laboratory","len":3,"kind":"num","v":"hiq57yuawl7","r":"TjeD+w/SMDHtqXCeAkFnT08Ln0IgYqoP1y77keQiWmX+6018mJkJIV7IdRPFBoIqQrazXHVobk4MZZM8kQ==","h":["UGxheWVyIEE6IHJlYWQgdGhlIGRhdGUgYW5kIHBhaW50cyBvZiBlYWNoIHBhaW50aW5nLiBQbGF5ZXIgQjogc2F5IHdoZW4gZWFjaCBwYWludCBiZWNhbWUgYXZhaWxhYmxlLg==","TG9vayBmb3IgYSBwYWludCB0aGF0IGNhbWUgbGF0ZXIgdGhhbiB0aGUgZGF0ZSBvbiB0aGUgcGFpbnRpbmcu","TGFkeSBpbiBHcmV5ICgxODUxKSB1c2VzIGNlcnVsZWFuIGJsdWUsIGF2YWlsYWJsZSBmcm9tIDE4NjAuIENhdGFsb2d1ZSBudW1iZXIgMjE0Lg=="],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEd1YXJkJ3MgcGFnZS4gVGhlIGltcG9zc2libGUgcGFpbnRpbmcgaXMgTGFkeSBpbiBHcmV5LiBDb21wYXJlIGl0IHdpdGggdGhlIGNhdGFsb2d1ZS4="},{"n":"The Crates","t":"The Crates","len":3,"kind":"num","v":"1lz1cgxo5ut7","r":"gTODUxympkqNqpdeiKVIRf1lpw7YMMC0jWEgWJJmT3gbWH6xPQjpngK9n8w=","h":["UGxheWVyIEI6IGZpbmQgdGhlIGNhbnZhcyBzaXplIG9mIFRoZSBPcmNoYXJkIGluIHRoZSBjYXRhbG9ndWUu","NjEgYnkgNDYgY20sIHBsdXMgNiBjbSBvbiBldmVyeSBzaWRlOiA3MyB3aWRlLCA1OCBoaWdoLg==","Q3JhdGUgMTA4LiBDcmF0ZSAxMzUgaXMgdGhlIHJpZ2h0IHNpemUgYnV0IHN0YW5kaW5nIHRoZSB3cm9uZyB3YXku"],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEd1YXJkJ3MgcGFnZS4gVGhlIGZyYW1lIGJlbG9uZ3MgdG8gVGhlIE9yY2hhcmQuIENvbXBhcmUgaXQgd2l0aCB0aGUgY2F0YWxvZ3VlLg=="},{"n":"The Labels","t":"The Labels","len":4,"kind":"num","v":"x93gr3wah77","r":"9uAuXYkW0F3atoSvLZ/iH8Ink8BxEVCbAL4ywk+8U+BBO7mKHr4sPgnpz+SlOzxmEw==","h":["UGxheWVyIEE6IHJlYWQgZWFjaCBsYWJlbC4gUGxheWVyIEI6IGNoZWNrIHRpdGxlLCBhcnRpc3QgYW5kIHllYXIgaW4gdGhlIGNhdGFsb2d1ZS4=","RXZlcnkgbGFiZWwgbWF0Y2hlcyBleGNlcHQgb25lIHllYXIu","R3VsbHMgb3ZlciB0aGUgQmF5IHNheXMgMTg4Ni4gVGhlIGNhdGFsb2d1ZSBzYXlzIDE4Njgu"],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEd1YXJkJ3MgcGFnZS4gVGhlIHdyb25nIGxhYmVsIGlzIEd1bGxzIG92ZXIgdGhlIEJheS4gQ29tcGFyZSBpdCB3aXRoIHRoZSBjYXRhbG9ndWUu"},{"n":"The Keypad","t":"The Keypad","len":4,"kind":"num","v":"2gkjy6kha747","r":"ZhrerLcskCdAc7nDCwJXLdZ5FR6dT5alpU9qY+850q3f+YK/575jYFJ35k2iSh8E+A==","h":["UGxheWVyIEE6IHJlYWQgdGhlIHdvcm4ga2V5cy4gUGxheWVyIEI6IHJlYWQgdGhlIHllYXJzIGluIHRoZSB0aW1lbGluZS4=","VGhlIHllYXIgdXNlcyAxLCA0LCA3IGFuZCA5LCBlYWNoIG9uY2Uu","MTk0Ny4="],"m":"VGhlIFAuUy4gaXMgb24gdGhlIEd1YXJkJ3MgcGFnZS4gVGhlIG11c2V1bSBib3VnaHQgVGhlIEJyaWRnZSBpbiAxOTQ3LiBDb21wYXJlIGl0IHdpdGggdGhlIGNhdGFsb2d1ZS4="}],"f":{"len":6,"kind":"txt","v":"10k4qtldawr7","r":"jARlPlcjn1U6N4dX8Zup4Hz+smWZKUs9PhnLv61E3/KOzxfqKGrGwLF3CRhMTK0IKfUv/hm5AX0+Ei5LkQhbSLO6piprcxzeJ3bb6pUpUqEm4oMAhSbzcZ9c5ZMzRWavkeIuW0J/f7gq0AqQeM7zcqxcw3J6VWhNzTTym5tQY6pEsA6VA44jvWsc2aAgvLL9orF5WS3oGWPt46p82wQu7nQv2xLWEX9NkxOxjWWJaq8Sg8WGNnFmyLvS+dHCa04m1JDf6n6OOOzAlcXrC7BI1m5D+K5dojizsJk2+aE4mK2awV8n61vh1yYXjbFf3oBlzdBbWQ46nR3XJTnfaSzjq4VoZU5BuP/Q+L+R4YX2kbD3poeLmtRT+kQsrTvc1Ahadjg0m8u3wTMlPqe+d3JwOhOuuzMP101/3VkJg5M1CAUmVvO6FR+Aggy8/etaeJ+StKQfrxMw6fqr2sBaPcbHmHqqASrpi4MrsXJv9t7OTL34wAimnaI7Pz3qpSaJRi54lZtGaAfyfvgrV8UoxHX+xigUDDcpRqwGnI2hJn04GJ3dOngPDEwHdUGyuft68oJgLSW/UBNAR7SQO7CsP4ngs+eE44oCN1bl0a+PbAs3tfSaBEmvUtnQfNZRrYApuVreWOLvMcOn+ct7SdjtPuJgILTywsjAPDBDcEu8CDf6UWYQ32jelEG0bOYzjMvKxRdRT8Y=","h":["UGxheWVyIEIgcmVhZHMgdGhlIGN1cmF0b3IncyBub3RlIGxpbmUgYnkgbGluZS4gUGxheWVyIEEgc2F5cyB3aGljaCBjbHVlIGVhY2ggbGluZSBpcyBhYm91dC4=","V3JvbmcgbGFiZWw6IGNsdWUgNS4gV2hlcmUgdGhlIHdhbGtlciBzdG9wcGVkOiBjbHVlIDIuIFRoZSBmcmFtZTogY2x1ZSA0LiBUaGUgcm9vbSBuZXZlciBlbnRlcmVkOiBjbHVlIDEuIEJvdWdodCBpbiAxOTQ3OiBjbHVlIDYuIENvdWxkIG5vdCBleGlzdDogY2x1ZSAzLg==","V2hlZWxzIDEgdG8gNjogdGhlIGxldHRlcnMgb2YgY2x1ZXMgNSwgMiwgNCwgMSwgNiBhbmQgMy4="]},"t":{"unit":"Clue","served":"solved","now":"now","locked":"locked","stamp":"LOGGED","markhead":"Now compare the painting.","marktext":"One of you has a P.S. that says which painting counts. Compare it with the catalogue sketch: the detail that differs forms a letter. Write it on The Curator&#39;s Cabinet page.","markbtn":"Which painting?","next":"Next clue","gofinal":"Go to the cabinet","fkick":"The last door","ftitle":"The Curator&#39;s Cabinet","ftext":"Six letter wheels. One of you has the cabinet, the other has the curator&#39;s note.","flabel":"The six letters","fbtn":"Open the cabinet","fwrong":"The cabinet stays locked. Check the order in the curator’s note.","wrong":["No. Talk it through again.","Not yet. What exactly did your partner see?","The alarm stays silent. Try once more."]}};
+const SALT='hartley', KEY='gallery-v01';
+function dec(b64,key){const r=rng(seedOf(key));const raw=atob(b64);const out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i)^r();return new TextDecoder().decode(out);}
+function b64(s){const raw=atob(s);const out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return new TextDecoder().decode(out);}
+const $=id=>document.getElementById(id);
+let S={i:0,letters:[],lines:[],hints:[0,0,0,0,0,0,0,0,0],tries:0,start:0,done:false,fin:null,mute:false};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY));if(v&&typeof v.i==='number')S=Object.assign(S,v);}catch(e){}}
+
+/* ---- sound: synthesised, no files needed ---- */
+let ac=null;
+function ctx(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
+function tone(f,t0,d,type,g){const a=ctx();if(!a||S.mute)return;const o=a.createOscillator(),v=a.createGain();o.type=type||'sine';o.frequency.value=f;
+ v.gain.setValueAtTime(0,a.currentTime+t0);v.gain.linearRampToValueAtTime(g||.18,a.currentTime+t0+.015);v.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t0+d);
+ o.connect(v).connect(a.destination);o.start(a.currentTime+t0);o.stop(a.currentTime+t0+d+.05);}
+const sfx={click(){tone(180,0,.07,'square',.12);tone(90,.05,.12,'triangle',.2);},
+ wrong(){tone(150,0,.16,'sawtooth',.1);tone(110,.14,.26,'sawtooth',.1);},
+ right(){tone(120,0,.09,'square',.14);[523,659,784].forEach((f,k)=>tone(f,.12+k*.11,.5,'sine',.16));},
+ hint(){tone(880,0,.18,'sine',.08);},
+ finale(){[392,494,587,784,988,1175].forEach((f,k)=>tone(f,k*.13,.9,'sine',.14));}};
+
+/* ---- optional recorded audio: drop mp3 files in an audio/ folder next to this page ---- */
+const voice=new Audio();voice.preload='none';
+function setVoice(name){$('voice').hidden=true;voice.pause();voice.src='audio/'+name+'.mp3';voice.oncanplay=()=>{$('voice').hidden=false;};voice.onerror=()=>{$('voice').hidden=true;};voice.load();}
+$('voice').onclick=()=>{if(S.mute)return;voice.currentTime=0;voice.play().catch(()=>{});};
+
+function renderLetters(){return;$('letters').innerHTML=D.c.map((c,k)=>'<div class="slot'+(S.letters[k]?' on':'')+'" aria-label="Course '+(k+1)+'">'+(S.letters[k]||'')+'</div>').join('');}
+function renderMenu(){$('menu').innerHTML=D.c.map((c,k)=>{const cls=k<S.i?'done':k===S.i?'now':'locked';
+ return '<li class="'+cls+'"><span class="no">'+(k+1)+'</span><span class="nm">'+c.n+'</span><span class="st">'+(k<S.i?D.t.served:k===S.i?D.t.now:D.t.locked)+'</span></li>';}).join('');}
+function renderStage(){
+ const st=$('stage');
+ if(S.i>=D.c.length){ // the safe
+  st.innerHTML='<p class="kicker">'+D.t.fkick+'</p><h2>'+D.t.ftitle+'</h2><div class="lock" id="lock"><div class="sh"></div><div class="body"></div></div>'+
+  '<p>'+D.t.ftext+'</p><label for="code">'+D.t.flabel+'</label><input class="code" id="code" maxlength="'+D.f.len+'" autocomplete="off" spellcheck="false" '+(D.f.kind==='num'?'inputmode="numeric"':'autocapitalize="characters"')+'>'+
+  '<button class="btn" id="go">'+D.t.fbtn+'</button><p class="msg" id="msg" role="status"></p><div class="hints"><h3>Stuck?</h3><div id="hl"></div><button class="btn alt" id="hb"></button></div>';
+  $('go').onclick=tryFinal;$('hb').onclick=moreHint;renderHints();$('code').onkeydown=e=>{if(e.key==='Enter')tryFinal();};setVoice('safe');return;}
+ const c=D.c[S.i];
+ st.innerHTML='<p class="kicker">'+D.t.unit+' '+(S.i+1)+' · '+c.n+'</p><h2>'+c.t+'</h2><div class="lock" id="lock"><div class="sh"></div><div class="body"></div></div>'+
+  '<label for="code">'+(c.kind==='num'?c.len+' digits':c.len+' letters')+'</label>'+
+  '<input class="code" id="code" maxlength="'+c.len+'" autocomplete="off" spellcheck="false" '+(c.kind==='num'?'inputmode="numeric" pattern="[0-9]*"':'autocapitalize="characters"')+'>'+
+  '<button class="btn" id="go">Try the lock</button><p class="msg" id="msg" role="status"></p>'+
+  '<div class="hints"><h3>Stuck?</h3><div id="hl"></div><button class="btn alt" id="hb"></button></div>';
+ $('go').onclick=tryCode;$('code').onkeydown=e=>{if(e.key==='Enter')tryCode();};$('hb').onclick=moreHint;renderHints();setVoice('course'+(S.i+1));
+}
+function renderHints(){const c=S.i<D.c.length?D.c[S.i]:D.f,n=S.hints[S.i]||0;$('hl').innerHTML=c.h.slice(0,n).map((h,k)=>'<div class="hint"><b>Hint '+(k+1)+'.</b> '+b64(h)+'</div>').join('');
+ const b=$('hb');if(n>=c.h.length){b.hidden=true;}else{b.hidden=false;b.textContent=n===0?'Ask for a hint':n===c.h.length-1?'Last hint (nearly the answer)':'Another hint';}}
+function moreHint(){S.hints[S.i]++;save();sfx.hint();renderHints();}
+function bad(text){const l=$('lock');l.classList.remove('no');void l.offsetWidth;l.classList.add('no');sfx.wrong();const m=$('msg');m.className='msg bad';m.textContent=text;S.tries++;save();$('code').select();}
+function tryCode(){const c=D.c[S.i],v=norm($('code').value);sfx.click();
+ if(v.length<c.len){const m=$('msg');m.className='msg bad';m.textContent='The code needs '+c.len+(c.kind==='num'?' digits.':' characters.');return;}
+ if(h53(v,11)+SALT.length!==c.v){bad(D.t.wrong[S.tries%3]);return;}
+ const r=JSON.parse(dec(c.r,v+SALT));$('lock').classList.add('open');sfx.right();
+ $('go').disabled=true;$('code').disabled=true;const m=$('msg');m.className='msg good';m.innerHTML='<span class="stamp">'+D.t.stamp+'</span><br><br>"'+r.line+'"<br><br><b>'+D.t.markhead+'</b><br><small>'+D.t.marktext+'</small><div class="mk"><button class="btn alt" id="mkb">'+D.t.markbtn+'</button><div id="mkt" class="hint" hidden></div></div>';$('mkb').onclick=()=>{$('mkt').textContent=b64(c.m);$('mkt').hidden=false;$('mkb').hidden=true;sfx.hint();};
+ S.letters[S.i]=r.letter;S.lines[S.i]=r.line;const k=S.i;setTimeout(()=>{renderLetters();},500);
+ const nx=document.createElement('button');nx.className='btn';nx.id='next';nx.textContent=k===D.c.length-1?D.t.gofinal:D.t.next;
+ nx.onclick=()=>{renderMenu();renderStage();window.scrollTo({top:0,behavior:'smooth'});};
+ const hb=document.querySelector('.hints');if(hb)hb.hidden=true;$('stage').appendChild(nx);S.i=k+1;save();
+}
+function tryFinal(){const v=norm($('code').value);sfx.click();
+ if(h53(v,11)+SALT.length!==D.f.v){bad(D.t.fwrong);return;}
+ $('lock').classList.add('open');S.done=true;S.fin=v;save();sfx.finale();setTimeout(showEnd,900);}
+function showEnd(){$('game').hidden=true;$('intro').hidden=true;$('end').hidden=false;$('letter').innerHTML=dec(D.f.r,S.fin+SALT);
+ const mins=S.start?Math.max(1,Math.round((Date.now()-S.start)/60000)):null;const h=S.hints.reduce((a,b)=>a+b,0);
+ $('stats').textContent=(mins?'Your evening: about '+mins+(mins===1?' minute, ':' minutes, '):'')+h+(h===1?' hint':' hints')+'.';setVoice('finale');window.scrollTo(0,0);}
+function showGame(){$('intro').hidden=true;$('end').hidden=true;$('game').hidden=false;renderLetters();renderMenu();renderStage();}
+$('start').onclick=()=>{ctx();sfx.click();if(!S.start)S.start=Date.now();save();showGame();};
+$('mute').onclick=()=>{S.mute=!S.mute;if(S.mute)voice.pause();$('mute').textContent='Sound: '+(S.mute?'off':'on');$('mute').setAttribute('aria-pressed',S.mute);save();};
+let armed=0;$('reset').onclick=()=>{if(Date.now()-armed<4000){try{localStorage.removeItem(KEY);}catch(e){}location.reload();}else{armed=Date.now();$('reset').textContent='Tap again to erase your progress';setTimeout(()=>{$('reset').textContent='Start over';},4000);}};
+load();$('mute').textContent='Sound: '+(S.mute?'off':'on');
+if(S.done&&S.fin)showEnd();else if(S.start)showGame();else setVoice('intro');
+</script>
+</body>
+</html>
