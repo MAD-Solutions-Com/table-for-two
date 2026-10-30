@@ -8,8 +8,8 @@ main{max-width:520px;width:100%;padding:28px 18px}h1{font-weight:500;font-size:3
 .v.last b:after{content:"  · last played here";font-weight:400;letter-spacing:0;opacity:.7}.msg{color:#a33a2c;font-size:15px}
 </style></head><body><main><h1>The Last Light at Kerrow Point</h1><p class="sub">Companion page</p><div class="card">
 <p><b>Which version did you print?</b> It says so at the bottom of every printed page: <i>prototype v&hellip;</i></p>
-<p class="msg" id="msg" hidden></p><a class="v" href="play-v0.8.html" data-v="v0.8"><b>Prototype v0.8</b><span>Current test version.</span></a></div></main><script>
-const K=["v0.8"],KEY='kerrow-point-version';const q=new URLSearchParams(location.search);let v=q.get('v');
+<p class="msg" id="msg" hidden></p><a class="v" href="play-v1.0-test1.html" data-v="v1.0-test1"><b>Prototype v1.0-test1</b><span>The new story: who lit the false light? Five parts and a message in Morse.</span></a><a class="v" href="play-v0.8.html" data-v="v0.8"><b>Prototype v0.8</b><span>The first version: six parts and the great lens.</span></a></div></main><script>
+const K=["v1.0-test1", "v0.8"],KEY='kerrow-point-version';const q=new URLSearchParams(location.search);let v=q.get('v');
 if(v!==null){v=v.trim().toLowerCase();if(v&&v[0]!=='v')v='v'+v;
  if(K.includes(v)){try{localStorage.setItem(KEY,v)}catch(e){}location.replace('play-'+v+'.html');}
  else if(q.get('v')!==''){const m=document.getElementById('msg');m.hidden=false;m.textContent='This page does not know version '+q.get('v')+'. Pick the one printed on your pages:';}}
